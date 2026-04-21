@@ -1,0 +1,163 @@
+---
+title: "Week 7 Data Assignment"
+author: "Vanessa Kellermann"
+date: "2026-04-15"
+output: html_document
+---
+
+
+## Instructions
+- Answer all questions in the sections below.
+- Keep written responses concise (max 100 words where indicated).
+- Ensure your code runs without errors.
+- Knit this document before submission.
+
+---
+
+## Setup
+
+```{r}
+#start off with a clear working environment
+rm(list =ls())
+
+# Load dataset (make sure the file is in your working directory)
+data <- read.csv("dataset_1.csv")
+
+# Inspect the data
+head(data)
+str(data)
+
+# Convert variables to factors if needed
+data$Population <- as.factor(data$Population)
+data$Treatment <- as.factor(data$Treatment)
+```
+
+Part 1: Identify the Experimental Design (?Marks)
+
+#Answer in bullet points:
+
+Independent variables:
+Levels of each variable:
+Dependent variable:
+Number of replicates per group:
+Type of design (e.g. factorial):
+
+Part 2: Hypothesis (5 marks)
+
+(Max 100 words)
+
+Write a clear, testable, and directional hypothesis.
+Make sure you include both variables and provide a brief biological justification.
+
+#Your answer:
+
+
+
+
+```{r}
+library(ggplot2)
+
+ggplot(data, aes(x = Treatment,y = KnockdownTime, fill = Population)) +
+  geom_boxplot() +
+  labs(
+    x = "Treatment",
+    y = "Trait value",
+    title = "Effect of Population and Treatment on Trait"
+  ) +
+  theme_minimal()
+
+####Try plotting the data with Population on the x and fill = Treatment
+
+
+
+```
+
+Question: Which is the best way to plot the data for the question you are interested in, comparing populations next to each other or treatments next to 
+each other? Explain why, hint think about your hypothesis
+
+#Your answer:
+
+
+
+
+```{r}
+#Here are three different plot types, plot data and then decide which shows the patterns clearest 
+
+#boxplot
+ggplot(data, aes(x = Population, y = KnockdownTime, fill = Treatment)) +
+  geom_boxplot() +
+  labs(
+    x = "Treatment",
+    y = "Trait value",
+    title = "Effect of Population and Treatment on Trait"
+  ) +
+  theme_minimal()
+
+#Bar graph
+
+ggplot(summary_data, aes(x = Treatment, y = mean_KnockdownTime, fill = Population)) +
+  geom_col(position = position_dodge(width = 0.8)) +
+  geom_errorbar(aes(ymin = mean_KnockdownTime - se_KnockdownTime,
+                    ymax = mean_KnockdownTime + se_KnockdownTime),
+                position = position_dodge(width = 0.8),
+                width = 0.2) +
+  labs(x = "Treatment",
+       y = "Mean Knockdown Time",
+       title = "Mean Knockdown Time by Population and Treatment") +
+  theme_minimal()
+
+# Mean point plot (with error bars)
+library(dplyr)
+
+summary_data <- data %>%
+  group_by(Population, Treatment) %>%
+  summarise(
+    mean_KnockdownTime = mean(KnockdownTime, na.rm = TRUE),
+    se_KnockdownTime = sd(KnockdownTime, na.rm = TRUE) / sqrt(n())
+  )  
+
+#ignore the error message you get it is unimportant 
+summary_data
+
+ggplot(summary_data, aes(x = Population, y = mean_KnockdownTime, color = Treatment)) +
+  geom_point(size = 3) +  # Plot mean values
+  geom_errorbar(aes(ymin = mean_KnockdownTime - se_KnockdownTime, ymax = mean_KnockdownTime + se_KnockdownTime), width = 0.2) +
+    theme_minimal()
+
+#Once you have plotted all three types run the code one final time using the plot
+#type you think best describes the data
+
+
+```
+
+Part 4: 
+
+Write a figure caption
+
+##Your answer:
+
+Interpretation (? marks)
+
+(Max 100 words)
+
+Describe the pattern shown in your figure
+State whether it supports your hypothesis
+Provide a brief biological explanation
+
+#Your answer:
+
+
+
+
+
+
+
+
+
+##Double check:
+ All sections completed
+ Code runs without errors
+ Figure is clear and labelled
+ Responses are within word limits
+ Document successfully knitted
+
