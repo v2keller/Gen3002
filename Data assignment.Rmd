@@ -1,17 +1,18 @@
 ---
 title: "Week 7 Data Assignment"
 author: "Vanessa Kellermann"
-date: "2026-04-15"
-output: html_document
+date: "2026-04-25"
+output: 
+  pdf_document:
+  keep_tex: true
 ---
-
-
 ## Instructions
 - Answer all questions in the sections below.
 - Keep written responses concise (max 100 words where indicated).
 - Ensure your code runs without errors.
 - Knit this document before submission.
 
+BOOOOO
 ---
 
 ## Setup
@@ -21,7 +22,7 @@ output: html_document
 rm(list =ls())
 
 # Load dataset (make sure the file is in your working directory)
-data <- read.csv("dataset_1.csv")
+data <- read.csv("dataset_5.csv")
 
 # Inspect the data
 head(data)
@@ -32,7 +33,7 @@ data$Population <- as.factor(data$Population)
 data$Treatment <- as.factor(data$Treatment)
 ```
 
-Part 1: Identify the Experimental Design (?Marks)
+Part 1: Identify the Experimental Design 
 
 #Answer in bullet points:
 
@@ -40,9 +41,9 @@ Independent variables:
 Levels of each variable:
 Dependent variable:
 Number of replicates per group:
-Type of design (e.g. factorial):
+Type of design (e.g. continuous):
 
-Part 2: Hypothesis (5 marks)
+Part 2: Hypothesis 
 
 (Max 100 words)
 
@@ -66,14 +67,15 @@ ggplot(data, aes(x = Treatment,y = KnockdownTime, fill = Population)) +
   ) +
   theme_minimal()
 
-####Try plotting the data with Population on the x and fill = Treatment
+#Insert a new code chunk, copy the code from above  and try plotting the data 
+#with Population on the x and fill = Treatment
 
 
 
 ```
 
-Question: Which is the best way to plot the data for the question you are interested in, comparing populations next to each other or treatments next to 
-each other? Explain why, hint think about your hypothesis
+Question: Which is the best way to plot the data for the question you are interested in, comparing populations next to each other or treatments next to each other? 
+Explain why, hint think about your hypothesis
 
 #Your answer:
 
@@ -93,6 +95,19 @@ ggplot(data, aes(x = Population, y = KnockdownTime, fill = Treatment)) +
   ) +
   theme_minimal()
 
+# The code below creates means and standard errors which you can then plot
+library(dplyr)
+
+summary_data <- data %>%
+  group_by(Population, Treatment) %>%
+  summarise(
+    mean_KnockdownTime = mean(KnockdownTime, na.rm = TRUE),
+    se_KnockdownTime = sd(KnockdownTime, na.rm = TRUE) / sqrt(n())
+  )  
+#Ignore warning
+
+summary_data
+
 #Bar graph
 
 ggplot(summary_data, aes(x = Treatment, y = mean_KnockdownTime, fill = Population)) +
@@ -106,18 +121,7 @@ ggplot(summary_data, aes(x = Treatment, y = mean_KnockdownTime, fill = Populatio
        title = "Mean Knockdown Time by Population and Treatment") +
   theme_minimal()
 
-# Mean point plot (with error bars)
-library(dplyr)
-
-summary_data <- data %>%
-  group_by(Population, Treatment) %>%
-  summarise(
-    mean_KnockdownTime = mean(KnockdownTime, na.rm = TRUE),
-    se_KnockdownTime = sd(KnockdownTime, na.rm = TRUE) / sqrt(n())
-  )  
-
-#ignore the error message you get it is unimportant 
-summary_data
+# Dot plot with means and standard errors
 
 ggplot(summary_data, aes(x = Population, y = mean_KnockdownTime, color = Treatment)) +
   geom_point(size = 3) +  # Plot mean values
@@ -136,7 +140,9 @@ Write a figure caption
 
 ##Your answer:
 
-Interpretation (? marks)
+
+
+Interpretation 
 
 (Max 100 words)
 
@@ -157,7 +163,5 @@ Provide a brief biological explanation
 ##Double check:
  All sections completed
  Code runs without errors
- Figure is clear and labelled
- Responses are within word limits
  Document successfully knitted
 
