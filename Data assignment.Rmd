@@ -1,18 +1,18 @@
 ---
 title: "Week 7 Data Assignment"
-author: "Vanessa Kellermann"
+author: "Student name and number"
 date: "2026-04-25"
 output: 
   pdf_document:
   keep_tex: true
 ---
 ## Instructions
-- Answer all questions in the sections below.
+- Answer all questions in the sections below (where it says ##Your answer:).
 - Keep written responses concise (max 100 words where indicated).
 - Ensure your code runs without errors.
-- Knit this document before submission.
+- Knit this document as a pdf and submit it to the lms. Alternatively if having
+trouble knitting insert answers into the word document provided
 
-BOOOOO
 ---
 
 ## Setup
@@ -22,7 +22,7 @@ BOOOOO
 rm(list =ls())
 
 # Load dataset (make sure the file is in your working directory)
-data <- read.csv("dataset_5.csv")
+data <- read.csv("dataset_?.csv")
 
 # Inspect the data
 head(data)
@@ -31,6 +31,8 @@ str(data)
 # Convert variables to factors if needed
 data$Population <- as.factor(data$Population)
 data$Treatment <- as.factor(data$Treatment)
+
+table(data$Treatment, data$Population)
 ```
 
 Part 1: Identify the Experimental Design 
@@ -41,7 +43,7 @@ Independent variables:
 Levels of each variable:
 Dependent variable:
 Number of replicates per group:
-Type of design (e.g. continuous):
+Type of design (e.g. continuous, factors):
 
 Part 2: Hypothesis 
 
@@ -58,6 +60,8 @@ Make sure you include both variables and provide a brief biological justificatio
 ```{r}
 library(ggplot2)
 
+#Figure 1
+
 ggplot(data, aes(x = Treatment,y = KnockdownTime, fill = Population)) +
   geom_boxplot() +
   labs(
@@ -67,23 +71,40 @@ ggplot(data, aes(x = Treatment,y = KnockdownTime, fill = Population)) +
   ) +
   theme_minimal()
 
-#Insert a new code chunk, copy the code from above  and try plotting the data 
-#with Population on the x and fill = Treatment
+#Insert a new code chunk, copy the code from above and try plotting the data with Population on the x and fill = Treatment
 
 
 
 ```
+Part 3:Data visualisation
 
-Question: Which is the best way to plot the data for the question you are interested in, comparing populations next to each other or treatments next to each other? 
-Explain why, hint think about your hypothesis
+There is more than one valid way to visualise these data.
 
-#Your answer:
+Comparing populations on the x-axis, or
+Comparing treatments on the x-axis?
+
+Choose which way you would like to present your data for Figure 1.Justify your choice by 
+referring to your hypothesis and explaining how your choice affects 
+interpretation of the pattern in the data.
+
+There is no single correct answer — your mark is based on how well your 
+choice aligns with your hypothesis and interpretation.
+##Your answer:
 
 
 
 
 ```{r}
+#Figure 2
+
 #Here are three different plot types, plot data and then decide which shows the patterns clearest 
+
+#You will need to modify all three figures to change whether you are comparing population next to each other or treatments next to each other. You will need to modify this bit of code 
+#aes(x = Population, y = KnockdownTime, fill = Treatment)) and labels labs(
+#   x = "Treatment",
+#  y = "Trait value",
+#  title = "Effect of Population and Treatment on Trait")
+
 
 #boxplot
 ggplot(data, aes(x = Population, y = KnockdownTime, fill = Treatment)) +
@@ -104,7 +125,7 @@ summary_data <- data %>%
     mean_KnockdownTime = mean(KnockdownTime, na.rm = TRUE),
     se_KnockdownTime = sd(KnockdownTime, na.rm = TRUE) / sqrt(n())
   )  
-#Ignore warning
+# Ignore the summarise() grouping warning — it does not affect your results
 
 summary_data
 
@@ -128,24 +149,19 @@ ggplot(summary_data, aes(x = Population, y = mean_KnockdownTime, color = Treatme
   geom_errorbar(aes(ymin = mean_KnockdownTime - se_KnockdownTime, ymax = mean_KnockdownTime + se_KnockdownTime), width = 0.2) +
     theme_minimal()
 
-#Once you have plotted all three types run the code one final time using the plot
-#type you think best describes the data
-
+#All three plot types are valid ways to display these data. Choose one to communicate your results in relation to your hypothesis. Re-run code for your chosen graph
 
 ```
 
-Part 4: 
+Part 3 continued: 
 
-Write a figure caption
+Write a figure caption (max 50 words)
 
 ##Your answer:
 
 
 
-Interpretation 
-
-(Max 100 words)
-
+Interpretation of the figure (max 100 words) 
 Describe the pattern shown in your figure
 State whether it supports your hypothesis
 Provide a brief biological explanation
@@ -158,10 +174,13 @@ Provide a brief biological explanation
 
 
 
+Once finished knit document. Before knitting go back to the start and make sure your code runs with no errors. Knitting runs all of the document code and will not work if there are any code errors. The knit option is in the middle of the task bar just above, it looks like a ball of wool with knitting needles, press the knit button.
 
+If you really can't get knit to work you can copy your answer into the word document provided. See on the right handside word document entitled answer template.
 
 ##Double check:
  All sections completed
  Code runs without errors
- Document successfully knitted
+ Document successfully knitted, if failing knit copy  answers into 
+ word document on the lms (should also be in your project folder to the right). Fill in and upload to the assignment submission link
 
