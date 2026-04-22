@@ -45,15 +45,12 @@ Dependent variable:
 Number of replicates per group:
 Type of design (e.g. continuous, factors):
 
-Part 2: Hypothesis 
-
-(Max 100 words)
+Part 2: Hypothesis (Max 100 words)
 
 Write a clear, testable, and directional hypothesis.
 Make sure you include both variables and provide a brief biological justification.
 
 #Your answer:
-
 
 
 
