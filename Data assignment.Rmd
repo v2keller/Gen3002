@@ -24,7 +24,7 @@ trouble knitting insert answers into the word document provided
 rm(list =ls())
 
 # Load dataset (make sure the file is in your working directory)
-data <- read.csv("dataset_1.csv")
+data <- read.csv("dataset_?.csv")
 
 # Inspect the data
 head(data)
