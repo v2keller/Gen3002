@@ -2,9 +2,11 @@
 title: "Week 7 Data Assignment"
 author: "Student name and number"
 date: "2026-04-25"
-output: 
-  pdf_document:
+output:
+  html_document:
+    df_print: paged
   keep_tex: true
+  pdf_document: null
 ---
 ## Instructions
 - Answer all questions in the sections below (where it says ##Your answer:).
@@ -22,7 +24,7 @@ trouble knitting insert answers into the word document provided
 rm(list =ls())
 
 # Load dataset (make sure the file is in your working directory)
-data <- read.csv("dataset_?.csv")
+data <- read.csv("dataset_1.csv")
 
 # Inspect the data
 head(data)
